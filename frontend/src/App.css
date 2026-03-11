@@ -1,0 +1,178 @@
+/* Global reset */
+body {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+/* Dashboard background with Andhra Pradesh map */
+.dashboard {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  background: url('https://source.unsplash.com/1600x900/?andhra-pradesh-map') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.dashboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  /* overlay */
+  z-index: 0;
+}
+
+nav,
+main {
+  position: relative;
+  z-index: 1;
+  /* keep content above overlay */
+}
+
+/* Sidebar */
+nav {
+  width: 220px;
+  background: #008080;
+  /* teal */
+  color: #fff;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+nav h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffd700;
+  /* gold accent */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+nav li:hover {
+  color: #ffd700;
+  /* gold hover */
+}
+
+/* Main content */
+main {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Section backgrounds with overlays */
+.section-bg {
+  position: relative;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  /* overlay */
+  border-radius: 12px;
+  z-index: 0;
+}
+
+.section-bg>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* Specific section backgrounds */
+.section-bg.cost {
+  background: url('https://source.unsplash.com/1600x900/?indian-currency') center/cover no-repeat;
+}
+
+.section-bg.voice {
+  background: url('https://source.unsplash.com/1600x900/?microphone') center/cover no-repeat;
+}
+
+.section-bg.weather {
+  background: url('https://source.unsplash.com/1600x900/?clouds,sky') center/cover no-repeat;
+}
+
+.section-bg.route {
+  background: url('https://source.unsplash.com/1600x900/?road-map,routes') center/cover no-repeat;
+}
+
+/* Card styling */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs */
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #008080;
+  /* teal focus */
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.2);
+}
+
+/* Buttons */
+button {
+  background: #008080;
+  /* teal */
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #006666;
+  /* darker teal */
+}
+
+button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Lists */
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
