@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_BASE = "http://localhost:8000";
 
-const UNSPLASH_KEY = "acCXdTwPzsmfyGFCQsEcsQCZJUX4xPkuKvz8VAeQ";
+const UNSPLASH_KEY = "guVHoYWIAmdvBtj3wqAZDgEUnYCm2HeqJ7VkyDpvybc";
 
 // Voice Assistant
 export const askAssistant = (query) => {
