@@ -1,76 +1,119 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getPlaceImage } from "../services/api";
+import { getPlaceImage } from "../api";
 
-export default function Destinations() {
-  const [destinations, setDestinations] = useState([]);
+const API_BASE = "http://localhost:8000";
+
+const Destinations = () => {
+
+  const [places, setPlaces] = useState([]);
+  const [images, setImages] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     const fetchDestinations = async () => {
       try {
-        const res = await axios.get("http://127.0.0.1:8000/destinations");
 
-        // Fetch Unsplash image for each destination
-        const destinationsWithImages = await Promise.all(
-          res.data.map(async (destination) => {
-            const image = await getPlaceImage(destination.name || destination.city);
-            return { ...destination, image_url: image };
-          })
-        );
+        const res = await axios.get(`${API_BASE}/destinations`);
+        const placesList = res.data;
+        setPlaces(placesList);
 
-        setDestinations(destinationsWithImages);
-      } catch (err) {
-        console.error("Failed to fetch destinations", err);
+        const imagePromises = placesList.map(async (place) => {
+          try {
+            const img = await getPlaceImage(place.name);
+            return { name: place.name, url: img };
+          } catch {
+            return {
+              name: place.name,
+              url: "https://source.unsplash.com/400x300/?travel"
+            };
+          }
+        });
+
+        const results = await Promise.all(imagePromises);
+
+        const imageMap = {};
+        results.forEach((item) => {
+          imageMap[item.name] = item.url;
+        });
+
+        setImages(imageMap);
+        setLoading(false);
+
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+        setLoading(false);
       }
     };
 
     fetchDestinations();
+
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Destinations</h2>
+    <div style={{ padding: "30px" }}>
+
+      <h1>Destinations</h1>
+
+      {loading && <p>Loading destinations...</p>}
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px,1fr))",
           gap: "20px",
+          marginTop: "20px",
         }}
       >
-        {destinations.map((destination) => (
+
+        {places.map((place, index) => (
+
           <div
-            key={destination.id}
+            key={index}
             style={{
-              border: "1px solid #ddd",
-              borderRadius: "8px",
+              borderRadius: "10px",
               overflow: "hidden",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-              backgroundColor: "#fff",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+              background: "white",
             }}
           >
-            {destination.image_url && (
-              <img
-                src={destination.image_url}
-                alt={destination.name}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                }}
-              />
-            )}
 
-            <div style={{ padding: "10px" }}>
-              <h3 style={{ margin: "0 0 10px" }}>{destination.name}</h3>
-              <p><strong>City:</strong> {destination.city}</p>
-              <p><strong>Category:</strong> {destination.category}</p>
-              <p><strong>Rating:</strong> ⭐ {destination.rating}</p>
-              <p><strong>Estimated Cost:</strong> ₹{destination.estimated_cost}</p>
+            <img
+              src={
+                images[place.name] ||
+                "https://source.unsplash.com/400x300/?travel"
+              }
+              alt={place.name}
+              style={{
+                width: "100%",
+                height: "180px",
+                objectFit: "cover",
+              }}
+            />
+
+            <div style={{ padding: "15px" }}>
+
+              <h3>{place.name}</h3>
+
+              <p><b>City:</b> {place.city}</p>
+
+              <p><b>Category:</b> {place.category}</p>
+
+              <p>⭐ {place.rating}</p>
+
+              <p><b>Estimated Cost:</b> ₹{place.estimated_cost}</p>
+
             </div>
+
           </div>
+
         ))}
+
       </div>
+
     </div>
   );
-}
+};
+
+export default Destinations;
