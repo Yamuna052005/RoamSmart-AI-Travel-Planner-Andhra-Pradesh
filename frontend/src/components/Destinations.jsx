@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getPlaceImage } from "../services/api";
 
 export default function Destinations() {
   const [destinations, setDestinations] = useState([]);
@@ -8,17 +9,28 @@ export default function Destinations() {
     const fetchDestinations = async () => {
       try {
         const res = await axios.get("http://127.0.0.1:8000/destinations");
-        setDestinations(res.data);
+
+        // Fetch Unsplash image for each destination
+        const destinationsWithImages = await Promise.all(
+          res.data.map(async (destination) => {
+            const image = await getPlaceImage(destination.name || destination.city);
+            return { ...destination, image_url: image };
+          })
+        );
+
+        setDestinations(destinationsWithImages);
       } catch (err) {
         console.error("Failed to fetch destinations", err);
       }
     };
+
     fetchDestinations();
   }, []);
 
   return (
     <div style={{ padding: "20px" }}>
       <h2>Destinations</h2>
+
       <div
         style={{
           display: "grid",
@@ -45,20 +57,16 @@ export default function Destinations() {
                   width: "100%",
                   height: "180px",
                   objectFit: "cover",
-                  display: "block",
-                }}
-                onError={(e) => {
-                  e.target.style.display = "none"; // hide broken images
                 }}
               />
             )}
+
             <div style={{ padding: "10px" }}>
               <h3 style={{ margin: "0 0 10px" }}>{destination.name}</h3>
               <p><strong>City:</strong> {destination.city}</p>
               <p><strong>Category:</strong> {destination.category}</p>
               <p><strong>Rating:</strong> ⭐ {destination.rating}</p>
               <p><strong>Estimated Cost:</strong> ₹{destination.estimated_cost}</p>
-              {/* ✅ Season removed */}
             </div>
           </div>
         ))}
