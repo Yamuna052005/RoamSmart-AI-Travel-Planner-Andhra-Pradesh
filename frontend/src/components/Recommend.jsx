@@ -1,81 +1,123 @@
 import React, { useState } from "react";
-import { getRecommendations } from "../services/api";
+import axios from "axios";
 
 export default function Recommendations() {
+
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [season, setSeason] = useState("");
   const [duration, setDuration] = useState(1);
-  const [itinerary, setItinerary] = useState(null);
+  const [itinerary, setItinerary] = useState([]);
+  const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
+  const fetchItinerary = async () => {
     try {
-      const res = await getRecommendations({
-        location,
-        category,
-        season,
-        duration
+
+      const res = await axios.post("http://127.0.0.1:8000/recommendations", {
+        location: location,
+        category: category,
+        season: season,
+        duration: Number(duration)
       });
-      setItinerary(res.data);
-    } catch {
-      setItinerary({ error: "Failed to fetch recommendations" });
+
+      console.log(res.data);
+
+      if (res.data.itinerary) {
+        setItinerary(res.data.itinerary);
+        setError("");
+      } else {
+        setError("No itinerary found");
+        setItinerary([]);
+      }
+
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch itinerary");
+      setItinerary([]);
     }
   };
 
   return (
-    <div>
-      <h2>AI Recommendations</h2>
-      <input
-        placeholder="Enter location..."
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-      />
-      <input
-        placeholder="Enter category..."
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      />
-      <input
-        placeholder="Enter season..."
-        value={season}
-        onChange={(e) => setSeason(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Duration (days)"
-        value={duration}
-        onChange={(e) => setDuration(Number(e.target.value))}
-      />
-      <button onClick={handleSubmit}>Get Itinerary</button>
+    <div style={{ padding: "20px" }}>
 
-      {itinerary && !itinerary.error && !itinerary.message && (
-        <div style={{ marginTop: "1rem", display: "grid", gap: "1rem" }}>
-          <h3>Your Itinerary</h3>
-          {itinerary.map((place, index) => (
-            <div
-              key={index}
-              style={{
-                background: "#f9f9f9",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "1rem",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-              }}
-            >
-              <h4>Day {index + 1}: {place.name}</h4>
-              <p><strong>City:</strong> {place.city}</p>
-              <p><strong>Category:</strong> {place.category}</p>
-              <p><strong>Rating:</strong> {place.rating}</p>
-              <p><strong>Estimated Cost:</strong> ₹{place.estimated_cost}</p>
-              <p><strong>Season:</strong> {place.season}</p>
-              <p><strong>Coordinates:</strong> {place.latitude}, {place.longitude}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      <h2>AI Travel Recommendations</h2>
 
-      {itinerary?.message && <p>{itinerary.message}</p>}
-      {itinerary?.error && <p>{itinerary.error}</p>}
+      <div style={{ marginBottom: "15px" }}>
+
+        <input
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+
+        <input
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+
+        <input
+          placeholder="Season"
+          value={season}
+          onChange={(e) => setSeason(e.target.value)}
+        />
+
+        <input
+          type="number"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+
+        <button onClick={fetchItinerary}>
+          Get Itinerary
+        </button>
+
+      </div>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {itinerary.length > 0 &&
+
+        itinerary.map((day, dayIndex) => (
+
+          <div key={dayIndex} style={{ marginBottom: "20px" }}>
+
+            <h3>Day {dayIndex + 1}</h3>
+
+            {day.map((place) => (
+
+              <div
+                key={place.id}
+                style={{
+                  border: "1px solid #ccc",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  borderRadius: "6px"
+                }}
+              >
+
+                <p><b>Place:</b> {place.name}</p>
+
+                <p><b>City:</b> {place.city}</p>
+
+                <p><b>Category:</b> {place.category}</p>
+
+                <p><b>Rating:</b> ⭐ {place.rating}</p>
+
+                <p><b>Estimated Cost:</b> ₹{place.estimated_cost}</p>
+
+                
+
+              </div>
+
+            ))}
+
+          </div>
+
+        ))
+
+      }
+
     </div>
   );
 }

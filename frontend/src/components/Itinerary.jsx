@@ -6,69 +6,86 @@ export default function Itinerary() {
   const [days, setDays] = useState(2);
   const [preference, setPreference] = useState("");
   const [season, setSeason] = useState("");
-  const [itinerary, setItinerary] = useState(null);
+  const [itinerary, setItinerary] = useState([]);
+  const [error, setError] = useState("");
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/itinerary/${city}`, {
-        params: { days, preference, season }
+      const res = await axios.get(`http://127.0.0.1:8000/itinerary/${city}`, {
+        params: { days, preference, season },
       });
-      setItinerary(res.data);
-    } catch {
-      setItinerary({ error: "Failed to fetch itinerary" });
+
+      if (!res.data.itinerary) {
+        setError("No itinerary found");
+        setItinerary([]);
+      } else {
+        setItinerary(res.data.itinerary);
+        setError("");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch itinerary");
+      setItinerary([]);
     }
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>AI Itinerary Planner</h2>
-      <input
-        placeholder="Enter city..."
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Days"
-        value={days}
-        onChange={(e) => setDays(Number(e.target.value))}
-      />
-      <input
-        placeholder="Preference (temple, nature...)"
-        value={preference}
-        onChange={(e) => setPreference(e.target.value)}
-      />
-      <input
-        placeholder="Season (summer, winter...)"
-        value={season}
-        onChange={(e) => setSeason(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Get Itinerary</button>
 
-      {itinerary?.error && <p>{itinerary.error}</p>}
+      <div style={{ marginBottom: "15px" }}>
+        <input
+          placeholder="Enter city..."
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          style={{ marginRight: "5px" }}
+        />
+        <input
+          type="number"
+          placeholder="Days"
+          value={days}
+          onChange={(e) => setDays(Number(e.target.value))}
+          style={{ width: "60px", marginRight: "5px" }}
+        />
+        <input
+          placeholder="Preference"
+          value={preference}
+          onChange={(e) => setPreference(e.target.value)}
+          style={{ marginRight: "5px" }}
+        />
+        <input
+          placeholder="Season"
+          value={season}
+          onChange={(e) => setSeason(e.target.value)}
+          style={{ marginRight: "5px" }}
+        />
+        <button onClick={handleSubmit}>Get Itinerary</button>
+      </div>
 
-      {itinerary?.itinerary && (
-        <div style={{ marginTop: "1rem" }}>
-          <h3>{itinerary.city} Itinerary</h3>
-          {itinerary.itinerary.map((day) => (
-            <div key={day.day} style={{ marginBottom: "1rem" }}>
-              <h4>Day {day.day}</h4>
-              {day.places.map((place) => (
-                <div key={place.id} style={{ marginLeft: "1rem" }}>
-                  <p><strong>{place.name}</strong> ({place.category})</p>
-                  <p>Rating: {place.rating} | Cost: ₹{place.estimated_cost}</p>
-                  <p>Distance: {place.distance ? place.distance.toFixed(1) : 0} km</p>
-                  <img
-                    src={place.image_url}
-                    alt={place.name}
-                    style={{ width: "200px", borderRadius: "8px" }}
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {itinerary.length > 0 &&
+        itinerary.map((day, index) => (
+          <div key={index} style={{ marginBottom: "20px" }}>
+            <h3>Day {index + 1}</h3>
+            {day.map((place) => (
+              <div
+                key={place.id}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  backgroundColor: "#f9f9f9",
+                }}
+              >
+                <strong>{place.name}</strong> ({place.category})<br />
+                City: {place.city} | Rating: ⭐ {place.rating} | Cost: ₹{place.estimated_cost}<br />
+                Distance: {place.distance ? place.distance.toFixed(1) : 0} km
+              </div>
+            ))}
+          </div>
+        ))}
     </div>
   );
 }
