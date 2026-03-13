@@ -6,7 +6,7 @@ from typing import List
 
 router = APIRouter(prefix="/itinerary", tags=["Itinerary"])
 
-GRAPHOPPER_API_KEY = "2ea21e08-e870-443e-81c6-2352d01fa7b7"
+GRAPHOPPER_API_KEY = "Your_API_Key_here"
 
 class RouteRequest(BaseModel):
     places: List[str]
