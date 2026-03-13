@@ -144,9 +144,10 @@ Create a virtual environment:
 
 id="kz2z3a"
 python -m venv venv
-```
+
 
 Activate the environment:
+ venv\Scripts\activate
 
 Windows:
 
@@ -249,13 +250,6 @@ http://localhost:5173
 4️⃣ Route planner optimizes path
 5️⃣ AI generates travel itinerary
 6️⃣ Weather information helps finalize the trip
-
----
-
-# 🤝 Contributors
-
-- Yamuna
-- Project Team Members
 
 ---
 
