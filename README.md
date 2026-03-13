@@ -90,7 +90,7 @@ The system follows a **modular architecture**, separating frontend UI, backend A
 
 # 📂 Project Structure
 
-```id="19ue1s"
+
 RoamSmart
 │
 ├── backend
@@ -147,7 +147,6 @@ python -m venv venv
 
 
 Activate the environment:
- venv\Scripts\activate
 
 Windows:
 
