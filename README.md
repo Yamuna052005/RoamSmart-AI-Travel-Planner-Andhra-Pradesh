@@ -81,7 +81,7 @@ AI & ML Services
  └── Route Optimization
         │
         ▼
-Database (SQLite)
+Database (PostgreSQL)
 ```
 
 The system follows a **modular architecture**, separating frontend UI, backend APIs, machine learning services, and data storage.
