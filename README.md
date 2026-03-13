@@ -47,21 +47,26 @@ Allows users to interact with the system using voice commands.
 
 # 📸 Application Screenshots
 
-### 🏠 Home Page
+### 🏠 Home Page 
 
-![Home Page]<img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/7a16fc2d-f7f2-4e49-a811-bd979cee1a44" />
+<img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/7a16fc2d-f7f2-4e49-a811-bd979cee1a44" />
 
 ### 🌍 Destination Recommendations
 
-![Destinations](screenshots/destinations.png)
 
 ### 📅 Smart Itinerary Generator
 
-![Itinerary](screenshots/itinerary.png)
+
+
+### 💰 Travel Cost Prediction
+
+### 🗺️ Route Planner
 
 ### 🌤️ Weather Information
 
-![Weather](screenshots/weather.png)
+<img width="1920" height="974" alt="Image" src="https://github.com/user-attachments/assets/49e1eab3-5550-4c63-90d4-ca2b7bead2e5" />
+
+### 🎤 Voice Assistant
 
 ---
 
