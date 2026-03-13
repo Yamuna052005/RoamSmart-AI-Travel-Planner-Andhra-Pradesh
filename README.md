@@ -47,26 +47,33 @@ Allows users to interact with the system using voice commands.
 
 # 📸 Application Screenshots
 
-### 🏠 Home Page 
+### 🏠 Home Page  and Destination Recommendation
 
 <img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/7a16fc2d-f7f2-4e49-a811-bd979cee1a44" />
 
-### 🌍 Destination Recommendations
-
-
 ### 📅 Smart Itinerary Generator
 
+<img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/97f2e0ee-1046-42e1-9893-74d4abfe026b" />
 
+<img width="1920" height="968" alt="Image" src="https://github.com/user-attachments/assets/fb0ac7a0-bc35-44f8-bebf-1563b1fcfb1a" />
 
 ### 💰 Travel Cost Prediction
 
+<img width="1920" height="972" alt="Image" src="https://github.com/user-attachments/assets/2bbdce4e-a5fa-49de-8515-f70fdf0d4bd7" />
+
 ### 🗺️ Route Planner
+
+<img width="1920" height="964" alt="Image" src="https://github.com/user-attachments/assets/e1133fd7-da45-47f8-9327-6f9291c32dec" />
+
+<img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/22544121-8049-4d40-9a74-1e529a7bd11f" />
 
 ### 🌤️ Weather Information
 
 <img width="1920" height="974" alt="Image" src="https://github.com/user-attachments/assets/49e1eab3-5550-4c63-90d4-ca2b7bead2e5" />
 
 ### 🎤 Voice Assistant
+
+<img width="1920" height="972" alt="Image" src="https://github.com/user-attachments/assets/5f444a4d-a035-4600-bc21-36df33143a7c" />
 
 ---
 
