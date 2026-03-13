@@ -90,7 +90,7 @@ The system follows a **modular architecture**, separating frontend UI, backend A
 
 # 📂 Project Structure
 
-
+``` id="19uels"
 RoamSmart
 │
 ├── backend
@@ -144,7 +144,7 @@ Create a virtual environment:
 
 id="kz2z3a"
 python -m venv venv
-
+```
 
 Activate the environment:
 
@@ -237,7 +237,7 @@ http://localhost:5173
 
 ### Database
 
-- SQLite
+- PostgreSQL
 
 ---
 
