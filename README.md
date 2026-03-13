@@ -49,7 +49,7 @@ Allows users to interact with the system using voice commands.
 
 ### 🏠 Home Page
 
-![Home Page](screenshots/home.png)
+![Home Page]<img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/7a16fc2d-f7f2-4e49-a811-bd979cee1a44" />
 
 ### 🌍 Destination Recommendations
 
