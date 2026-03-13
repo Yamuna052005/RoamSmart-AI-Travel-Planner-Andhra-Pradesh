@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.exc import ProgrammingError, OperationalError
 
 # PostgreSQL connection
-engine = create_engine("postgresql://postgres:Palepogu%4019@localhost:5432/roamsmart")
+engine = create_engine("postgresql://postgres:Password@localhost:5432/roamsmart")
 
 def _load_ratings_table():
     try:
