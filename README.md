@@ -154,9 +154,8 @@ cd RoamSmart-AI-Travel-Planner-Andhra-Pradesh
 
 Create a virtual environment:
 
-id="kz2z3a"
 python -m venv venv
-```
+
 
 Activate the environment:
 
@@ -167,9 +166,9 @@ venv\Scripts\activate
 
 Install dependencies:
 
-```id="yq4hzo"
+
 pip install -r backend/requirements.txt
-```
+
 
 Run the backend server:
 
