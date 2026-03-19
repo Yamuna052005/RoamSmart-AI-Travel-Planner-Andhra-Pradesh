@@ -162,9 +162,8 @@ Activate the environment:
 
 Windows:
 
-```id="0yq2sm"
 venv\Scripts\activate
-```
+
 
 Install dependencies:
 
